@@ -7,6 +7,8 @@ import os
 import db
 # http://www.science.smith.edu/dftwiki/index.php/File:TkInterColorCharts.png
 
+# pyinstaller - https://pypi.org/project/pyinstaller/ 
+
 days = [i for i in range(1, 32)]
 months = [i for i in range(1, 13)]
 years = [i for i in range(2020, 2030)]
@@ -38,34 +40,34 @@ class GenerateBill:
         
 
 # https://stackoverflow.com/questions/27820178/how-to-add-placeholder-to-an-entry-in-tkinter
-class EntryWithPlaceholder(tkinter.Entry):
-    def __init__(self, master=None,width=10,font="arial 115 bold", placeholder="PLACEHOLDER", color='grey'):
-        super().__init__(master)
+# class EntryWithPlaceholder(tkinter.Entry):
+#     def __init__(self, master=None,width=10,font="arial 115 bold", placeholder="PLACEHOLDER", color='grey'):
+#         super().__init__(master)
 
-        self.placeholder = placeholder
-        self.placeholder_color = color
-        self.default_fg_color = self['fg']
-        self['font']=font
-        self['width']=width
+#         self.placeholder = placeholder
+#         self.placeholder_color = color
+#         self.default_fg_color = self['fg']
+#         self['font']=font
+#         self['width']=width
         
 
-        self.bind("<FocusIn>", self.foc_in)
-        self.bind("<FocusOut>", self.foc_out)
+#         self.bind("<FocusIn>", self.foc_in)
+#         self.bind("<FocusOut>", self.foc_out)
 
-        self.put_placeholder()
+#         self.put_placeholder()
 
-    def put_placeholder(self):
-        self.insert(0, self.placeholder)
-        self['fg'] = self.placeholder_color
+#     def put_placeholder(self):
+#         self.insert(0, self.placeholder)
+#         self['fg'] = self.placeholder_color
 
-    def foc_in(self, *args):
-        if self['fg'] == self.placeholder_color:
-            self.delete('0', 'end')
-            self['fg'] = self.default_fg_color
+#     def foc_in(self, *args):
+#         if self['fg'] == self.placeholder_color:
+#             self.delete('0', 'end')
+#             self['fg'] = self.default_fg_color
 
-    def foc_out(self, *args):
-        if not self.get():
-            self.put_placeholder()
+#     def foc_out(self, *args):
+#         if not self.get():
+#             self.put_placeholder()
 
 class Main:
     def __init__(self, master, *args, **kwargs):
@@ -594,7 +596,7 @@ class Main:
         self.conn.commit()
         name = result[1]
 
-        transaction_id_query = "SELECT MAX(transaction_id)  FROM item_transaction"
+        transaction_id_query = "SELECT MAX(transaction_id)  FROM item_transaction" 
         cur_transaction_id = self.c.execute(transaction_id_query)
         cur_transaction_id = cur_transaction_id.fetchone()[0]
 
@@ -1076,10 +1078,10 @@ class Main:
             
             
             #******* bug he yaha pe , reg 0 he but extra agar add kiya ho alag se toh fir wo db me add ho raha he,
-            # display me nai aa raha... - done
+            # display me nai aa raha... - done Solved
 
 
-            # ***** transaction id 1935 me 1 lit he db me but display me 1.5(regular wala) lit hi dikha raha -done
+            # ***** transaction id 1935 me 1 lit he db me but display me 1.5(regular wala) lit hi dikha raha -done Solved
 
             already_exists = self.c.execute(search_query, (customer_id, day, month, year, "Morning"))
             already_exists = self.c.fetchall()
